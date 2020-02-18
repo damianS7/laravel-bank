@@ -3,8 +3,8 @@ import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
 
-//import routes from './routes/index'
-//import store from './store/index'
+import router from './router/index'
+import store from './store/index'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -29,7 +29,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('bank-app', require('./components/BankApp.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -39,4 +39,6 @@ window.Vue = require('vue');
 
 const app = new Vue({
     el: '#app',
+    store,
+    router
 });

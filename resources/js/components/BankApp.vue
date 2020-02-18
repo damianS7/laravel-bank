@@ -1,23 +1,86 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
+  <b-container fluid class="p-0 wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar" :class="[ sidebarActive ? 'active' : '']">
+      <sidebar></sidebar>
+    </nav>
 
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
+    <div id="content">
+      <nav class="navbar navbar-expand-md navbar-light bg-secondary">
+        <div class="container-fluid">
+          <button @click="switchSidebar" type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-align-left"></i>
+            <span>Toggle Sidebar</span>
+          </button>
+          <button
+            class="btn btn-dark d-inline-block d-lg-none ml-auto"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-align-justify"></i>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Page</a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </div>
-</template>
+      </nav>
 
+      <!-- Page Content  -->
+      <b-row class="mx-0 p-3">
+        <b-col cols="12">
+          <router-view />
+        </b-col>
+      </b-row>
+    </div>
+  </b-container>
+</template>
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+import Sidebar from "./Sidebar";
+export default {
+  name: "BankApp",
+  data: function() {
+    return {
+      sidebarActive: false
+    };
+  },
+  components: {
+    sidebar: Sidebar
+  },
+  methods: {
+    logout() {
+      return this.$store.dispatch("appuser/logout");
+    },
+    switchSidebar() {
+      if (this.sidebarActive) {
+        this.sidebarActive = false;
+      } else {
+        this.sidebarActive = true;
+      }
     }
+  },
+  mounted() {
+    console.log("Component mounted.");
+  },
+  beforeCreate() {
+    //this.$store.dispatch("fetchData");
+  }
+};
 </script>
+<style scoped>
+#sidebar {
+  background-color: #343a40;
+  box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22) !important;
+}
+#content {
+  background-color: #f4f6f9;
+}
+</style>

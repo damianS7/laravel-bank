@@ -5,10 +5,15 @@ Aplicacion que simula la banca electronica de un cliente del banco.
 - Alta de clientes
 - Transferencias de saldo entre clientes del banco.
 - Creacion de cuentas adicionales
+- Tarjetas de credito/VCC
 
 # Tecnologias
 - Laravel
 - Vue/Vuex/VueRouter
 - Bootstrap/BootstrapVue
 - Laravel Echo (websocket)
-- AdminLTE???
+
+# Metodologia
+- usar api.php en vez de web.php para las rutas
+- Usar /api/fetch /api/accounts/ 
+- Usar websockets
