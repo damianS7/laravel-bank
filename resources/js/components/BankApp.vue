@@ -76,11 +76,5 @@ export default {
 };
 </script>
 <style scoped>
-#sidebar {
-  background-color: #343a40;
-  box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22) !important;
-}
-#content {
-  background-color: #f4f6f9;
-}
+
 </style>

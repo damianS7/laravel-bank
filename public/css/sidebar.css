@@ -1,3 +1,35 @@
+/* CUSTOM */
+.dropdown-toggle[aria-expanded="false"]:after {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.dropdown-toggle[aria-expanded="true"]:after {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+/*for the animation*/
+.dropdown-toggle:after {
+    transition: 0.5s;
+    font-size: 1.4rem;
+}
+
+.nav-sidebar .nav-link p {
+    display: inline-block;
+    margin: 0;
+}
+
+.nav-sidebar .nav-item > .nav-link {
+    margin-bottom: 0.2rem;
+}
+.nav-sidebar > .nav-item .nav-icon {
+    font-size: 1.2rem;
+    margin-right: 0.3rem;
+    text-align: center;
+    width: 1.6rem;
+}
+/* CUSTOM */
+
 .wrapper {
     display: flex;
     width: 100%;
@@ -7,10 +39,12 @@
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #7386D5;
+    background-color: #343a40;
+    /*background: #7386D5;*/
     color: #fff;
     transition: all 0.3s;
 }
+
 
 #sidebar.active {
     margin-left: -250px;
@@ -18,34 +52,34 @@
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
-}
-
-#sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul p {
     color: #fff;
-    padding: 10px;
 }
 
 #sidebar ul li a {
-    padding: 10px;
     font-size: 1.1em;
     display: block;
+    color: #c2c7d0;
+    border-radius: 0.25rem;
 }
 
 #sidebar ul li a:hover {
-    color: #7386D5;
-    background: #fff;
+    color: #fff;
+    background-color:rgba(255, 255, 255, 0.1);
+    
 }
 
-#sidebar ul li.active>a,
+/*  */
+#sidebar ul li>a.active,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background-color:rgba(255, 255, 255, 0.1)
+}
+
+a {
+    outline: 0;
 }
 
 a[data-toggle="collapse"] {
@@ -63,50 +97,29 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
-}
-
-ul.CTAs {
-    padding: 20px;
-}
-
-ul.CTAs a {
-    text-align: center;
-    font-size: 0.9em !important;
-    display: block;
-    border-radius: 5px;
-    margin-bottom: 5px;
-}
-
-a.download {
-    background: #fff;
-    color: #7386D5;
-}
-
-a.article,
-a.article:hover {
-    background: #6d7fcc !important;
-    color: #fff !important;
 }
 
 /* ---------------------------------------------------
-    CONTENT STYLE
+CONTENT STYLE
 ----------------------------------------------------- */
 
 #content {
     width: 100%;
     /*padding: 20px;*/
     min-height: 100vh;
+    background-color: #f4f6f9;
     transition: all 0.3s;
 }
 
 /* ---------------------------------------------------
-    MEDIAQUERIES
+MEDIAQUERIES
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;
+        position: absolute;
+        z-index: 9999;
     }
     #sidebar.active {
         margin-left: 0;

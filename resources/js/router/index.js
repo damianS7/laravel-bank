@@ -9,6 +9,8 @@ import Account from '../components/Account.vue'
 
 
 export default new VueRouter({
+    linkActiveClass: "active",
+    linkExactActiveClass: "exact-active",
     routes: [
         {
             path: '/account',
