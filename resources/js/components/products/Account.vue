@@ -2,7 +2,7 @@
   <b-container>
     <b-row>
       <b-col cols="12">
-        <h3>ACOUNT INFO HERE</h3>
+        <h3>ACOUNT INFO HERE, BALANCE, ACC NUMBER. AND CARROUSEL TO NEXT ACCOUNT</h3>
       </b-col>
     </b-row>
     <b-row>
@@ -13,10 +13,10 @@
               <b-card-text>TABLE WITH PAGINATION TO LIST HISTORY</b-card-text>
             </b-tab>
             <b-tab title="INFO">
-              <b-card-text>Info about acount. Alias. Balance.</b-card-text>
+              <b-card-text>Info about acount. Alias. Balance. Account number, open date, </b-card-text>
             </b-tab>
             <b-tab title="OPTIONS">
-              <b-card-text>Options. Cancel account. Transfer. Send money</b-card-text>
+              <b-card-text>Options. Cancel account. Transfer. Send money. See bills.</b-card-text>
             </b-tab>
           </b-tabs>
         </b-card>

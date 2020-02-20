@@ -48,20 +48,8 @@
               <ul class="nav collapse" id="my-products-submenu">
                 <li class="nav-item">
                   <router-link to="/products" class="nav-link" exact>
-                    <i class="nav-icon fa fa-piggy-bank"></i>
-                    My Products
-                  </router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link to="/products/accounts" class="nav-link">
                     <i class="nav-icon fa fa-money-check-alt"></i>
-                    Accounts
-                  </router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link to="/products/cards" class="nav-link">
-                    <i class="nav-icon fa fa-credit-card"></i>
-                    Cards
+                    My Products
                   </router-link>
                 </li>
                 <li class="nav-item">
@@ -104,7 +92,7 @@
                 </li>
                 <li class="nav-item">
                   <router-link to="/operations/activation" class="nav-link">
-                    <i class="nav-icon fa fa-thumbs-up"></i>
+                    <i class="nav-icon fa fa-credit-card"></i>
                     Activate Card
                   </router-link>
                 </li>

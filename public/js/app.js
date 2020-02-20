@@ -2160,18 +2160,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Sidebar",
@@ -2383,12 +2371,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Card",
+  name: "Account",
   computed: {
     card: function card() {
       return {
-        id: 1
+        id: 12
       };
     }
   }
@@ -72776,56 +72787,10 @@ var render = function() {
                               },
                               [
                                 _c("i", {
-                                  staticClass: "nav-icon fa fa-piggy-bank"
-                                }),
-                                _vm._v(
-                                  "\n                  My Products\n                "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "li",
-                          { staticClass: "nav-item" },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "nav-link",
-                                attrs: { to: "/products/accounts" }
-                              },
-                              [
-                                _c("i", {
                                   staticClass: "nav-icon fa fa-money-check-alt"
                                 }),
                                 _vm._v(
-                                  "\n                  Accounts\n                "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "li",
-                          { staticClass: "nav-item" },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "nav-link",
-                                attrs: { to: "/products/cards" }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "nav-icon fa fa-credit-card"
-                                }),
-                                _vm._v(
-                                  "\n                  Cards\n                "
+                                  "\n                  My Products\n                "
                                 )
                               ]
                             )
@@ -72965,7 +72930,7 @@ var render = function() {
                               },
                               [
                                 _c("i", {
-                                  staticClass: "nav-icon fa fa-thumbs-up"
+                                  staticClass: "nav-icon fa fa-credit-card"
                                 }),
                                 _vm._v(
                                   "\n                  Activate Card\n                "
@@ -73154,7 +73119,11 @@ var render = function() {
         "b-row",
         [
           _c("b-col", { attrs: { cols: "12" } }, [
-            _c("h3", [_vm._v("ACOUNT INFO HERE")])
+            _c("h3", [
+              _vm._v(
+                "ACOUNT INFO HERE, BALANCE, ACC NUMBER. AND CARROUSEL TO NEXT ACCOUNT"
+              )
+            ])
           ])
         ],
         1
@@ -73191,7 +73160,9 @@ var render = function() {
                         { attrs: { title: "INFO" } },
                         [
                           _c("b-card-text", [
-                            _vm._v("Info about acount. Alias. Balance.")
+                            _vm._v(
+                              "Info about acount. Alias. Balance. Account number, open date, "
+                            )
                           ])
                         ],
                         1
@@ -73203,7 +73174,7 @@ var render = function() {
                         [
                           _c("b-card-text", [
                             _vm._v(
-                              "Options. Cancel account. Transfer. Send money"
+                              "Options. Cancel account. Transfer. Send money. See bills."
                             )
                           ])
                         ],
@@ -73313,8 +73284,84 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "p-0 wrapper", attrs: { fluid: "" } },
-    [_vm._v("Card #" + _vm._s(_vm.card.id))]
+    [
+      _c(
+        "b-row",
+        [
+          _c("b-col", { attrs: { cols: "12" } }, [
+            _c("h3", [
+              _vm._v(
+                "ACOUNT INFO HERE, BALANCE, ACC NUMBER. AND CARROUSEL TO NEXT ACCOUNT"
+              )
+            ])
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            { attrs: { cols: "12" } },
+            [
+              _c(
+                "b-card",
+                { attrs: { "no-body": "" } },
+                [
+                  _c(
+                    "b-tabs",
+                    { attrs: { pills: "", card: "" } },
+                    [
+                      _c(
+                        "b-tab",
+                        { attrs: { title: "HISTORY", active: "" } },
+                        [
+                          _c("b-card-text", [
+                            _vm._v("TABLE WITH PAGINATION TO LIST HISTORY")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-tab",
+                        { attrs: { title: "INFO" } },
+                        [
+                          _c("b-card-text", [
+                            _vm._v(
+                              "Card type(debit/credit), expire date(10/22), cashout limit per day, account associated"
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-tab",
+                        { attrs: { title: "OPTIONS" } },
+                        [
+                          _c("b-card-text", [
+                            _vm._v("PIN change/show, cancel card, bloq card, .")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -90745,12 +90792,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     }, {
       path: 'accounts/:id',
       component: _components_products_Account_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
-    }, {
-      path: 'accounts',
-      component: _components_products_Accounts_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
-    }, {
-      path: 'cards',
-      component: _components_products_Cards_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
     }, {
       path: 'cards/:id',
       component: _components_products_Card_vue__WEBPACK_IMPORTED_MODULE_9__["default"]

@@ -35,14 +35,6 @@ export default new VueRouter({
                     component: Account,
                 },
                 {
-                    path: 'accounts',
-                    component: Accounts,
-                },
-                {
-                    path: 'cards',
-                    component: Cards,
-                },
-                {
                     path: 'cards/:id',
                     component: Card,
                 },

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountTransactionsTable extends Migration
+class CreateCustomerAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAccountTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_transactions', function (Blueprint $table) {
+        Schema::create('customer_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateAccountTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_transactions');
+        Schema::dropIfExists('customer_accounts');
     }
 }
