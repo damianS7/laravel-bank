@@ -34,12 +34,9 @@
         </div>
       </nav>
 
-      <!-- Page Content  -->
-      <b-row class="mx-0 p-3">
-        <b-col cols="12">
-          <router-view />
-        </b-col>
-      </b-row>
+      <b-container class="my-3">
+        <router-view />
+      </b-container>
     </div>
   </b-container>
 </template>
@@ -76,5 +73,4 @@ export default {
 };
 </script>
 <style scoped>
-
 </style>

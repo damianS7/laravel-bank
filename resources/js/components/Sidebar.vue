@@ -30,35 +30,92 @@
           >
             <li class="nav-item">
               <router-link to="/" class="nav-link" exact>
-                <i class="nav-icon fa fa-tachometer-alt"></i>
+                <i class="nav-icon fa fa-university"></i>
                 Dashboard
               </router-link>
             </li>
-            <li class="nav-item">
-              <router-link to="/account" class="nav-link">
-                <i class="nav-icon fa fa-users"></i>
-                Account
-              </router-link>
-            </li>
 
-            <li class="nav-item has-treeview">
+            <li class="nav-item">
               <a
-                href="#pageSubmenuXXX"
+                href="#my-products-submenu"
                 class="dropdown-toggle nav-link"
                 data-toggle="collapse"
                 aria-expanded="false"
               >
-                <i class="nav-icon fa fa-calendar-alt"></i>
-                Reservations
+                <i class="nav-icon fa fa-wallet"></i>
+                Products
               </a>
-              <ul class="nav collapse" id="pageSubmenuXXX">
+              <ul class="nav collapse" id="my-products-submenu">
                 <li class="nav-item">
-                  <router-link to="/reservation/wizard" class="nav-link">
-                    <i class="nav-icon fa fa-hat-wizard"></i>
-                    Reservation Wizard
+                  <router-link to="/products" class="nav-link" exact>
+                    <i class="nav-icon fa fa-piggy-bank"></i>
+                    My Products
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/products/accounts" class="nav-link">
+                    <i class="nav-icon fa fa-money-check-alt"></i>
+                    Accounts
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/products/cards" class="nav-link">
+                    <i class="nav-icon fa fa-credit-card"></i>
+                    Cards
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/products/contract" class="nav-link">
+                    <i class="nav-icon fa fa-file-signature"></i>
+                    Contract
                   </router-link>
                 </li>
               </ul>
+            </li>
+
+            <li class="nav-item">
+              <a
+                href="#operations-submenu"
+                class="dropdown-toggle nav-link"
+                data-toggle="collapse"
+                aria-expanded="false"
+              >
+                <i class="nav-icon fa fa-money-bill-wave"></i>
+                Operations
+              </a>
+              <ul class="nav collapse" id="operations-submenu">
+                <li class="nav-item">
+                  <router-link to="/user/operations/send" class="nav-link">
+                    <i class="nav-icon fa fa-exchange-alt"></i>
+                    Send money
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/operations/transfer" class="nav-link">
+                    <i class="nav-icon fa fa-sync"></i>
+                    Transfers
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/operations/invoices" class="nav-link">
+                    <i class="nav-icon fa fa-file-invoice-dollar"></i>
+                    Invoice Payments
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/operations/activation" class="nav-link">
+                    <i class="nav-icon fa fa-thumbs-up"></i>
+                    Activate Card
+                  </router-link>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-user"></i>
+                Profile
+              </a>
             </li>
 
             <li class="nav-item">
@@ -105,4 +162,8 @@ export default {
 };
 </script>
 <style scoped>
+.user-panel {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
 </style>
