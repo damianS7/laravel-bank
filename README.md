@@ -6,6 +6,7 @@ Aplicacion que simula la banca electronica de un cliente del banco.
 - Transferencias de saldo entre clientes del banco.
 - Creacion de cuentas adicionales
 - Tarjetas de credito/VCC
+- Notificaciones en tiempo real (Laravel Echo/Websocket)
 
 # Tecnologias
 - Laravel
@@ -16,4 +17,3 @@ Aplicacion que simula la banca electronica de un cliente del banco.
 # Metodologia
 - usar api.php en vez de web.php para las rutas
 - Usar /api/fetch /api/accounts/ 
-- Usar websockets
