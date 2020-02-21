@@ -64,11 +64,8 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log("Component mounted.");
-  },
   beforeCreate() {
-    //this.$store.dispatch("fetchData");
+    this.$store.dispatch("fetchData");
   }
 };
 </script>

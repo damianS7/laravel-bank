@@ -1974,10 +1974,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  mounted: function mounted() {
-    console.log("Component mounted.");
-  },
-  beforeCreate: function beforeCreate() {//this.$store.dispatch("fetchData");
+  beforeCreate: function beforeCreate() {
+    this.$store.dispatch("fetchData");
   }
 });
 
@@ -90854,6 +90852,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
     // necesarios para inicializar la aplicacion
     fetchData: function fetchData(context) {
       axios.get("/bank/fetch").then(function (response) {
+        context.commit("appuser/SET_USER", response.data.app_user);
         context.commit("SET_READY", true);
       });
     }

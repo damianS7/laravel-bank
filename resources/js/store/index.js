@@ -28,6 +28,7 @@ export default new Vuex.Store({
         // necesarios para inicializar la aplicacion
         fetchData(context) {
             axios.get("/bank/fetch").then(function (response) {
+                context.commit("appuser/SET_USER", response.data.app_user);
                 context.commit("SET_READY", true);
             });
         },
