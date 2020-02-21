@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBankTransfersTable extends Migration
+class CreateBankCardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateBankTransfersTable extends Migration
      */
     public function up()
     {
-        Schema::create('bank_transfers', function (Blueprint $table) {
+        Schema::create('bank_cards', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->string("number");
+            $table->string("ccv");
+            $table->string("expiration_date");
+            $table->enum("status", ["used", "free"])->default("free");
         });
     }
 
@@ -26,6 +29,6 @@ class CreateBankTransfersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bank_transfers');
+        Schema::dropIfExists('bank_cards');
     }
 }

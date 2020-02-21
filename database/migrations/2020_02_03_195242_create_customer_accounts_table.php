@@ -15,7 +15,14 @@ class CreateCustomerAccountsTable extends Migration
     {
         Schema::create('customer_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('account_id');
+            $table->enum("status", ["open", "closed", "blocked"])->default("open");
+            $table->enum("type", ["savings", "checking"])->default("savings");
+            $table->enum("currency", ["EUR", "USD"])->default("EUR");
+            $table->dateTime("created_on");
+            $table->foreign('customer_id')->references('id')->on('users')->onDelete('CASCADE');
+            $table->foreign('account_id')->references('id')->on('bank_accounts')->onDelete('CASCADE');
         });
     }
 

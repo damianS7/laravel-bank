@@ -15,7 +15,15 @@ class CreateCustomerCardsTable extends Migration
     {
         Schema::create('customer_cards', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->unsignedBigInteger('card_id');
+            $table->unsignedBigInteger('account_id');
+            $table->enum("type", ["credit", "debit", "vcc_debit"])->default("debit");
+            $table->enum("status", ["active", "inactive", "blocked"])->default("inactive");
+            $table->enum("currency", ["EUR", "USD"])->default("EUR");
+            $table->decimal("balance");
+            $table->dateTime("adquired_on");
+            $table->foreign('card_id')->references('id')->on('bank_cards')->onDelete('CASCADE');
+            $table->foreign('account_id')->references('id')->on('customer_accounts')->onDelete('CASCADE');
         });
     }
 

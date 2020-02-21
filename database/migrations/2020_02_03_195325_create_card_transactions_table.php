@@ -15,7 +15,11 @@ class CreateCardTransactionsTable extends Migration
     {
         Schema::create('card_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->unsignedBigInteger('card_id');
+            $table->string("concept");
+            $table->decimal("cost");
+            $table->dateTime("date");
+            $table->foreign('card_id')->references('id')->on('customer_cards')->onDelete('CASCADE');
         });
     }
 

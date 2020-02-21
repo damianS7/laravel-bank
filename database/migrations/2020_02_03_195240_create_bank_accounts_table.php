@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAvailableCardsTable extends Migration
+class CreateBankAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateAvailableCardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('available_cards', function (Blueprint $table) {
+        Schema::create('bank_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->string("iban");
+            $table->string("bic");
+            $table->enum("type", ["savings", "checking"])->default("savings");
+            $table->enum("status", ["used", "free"])->default("free");
         });
     }
 
@@ -26,6 +29,6 @@ class CreateAvailableCardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('available_cards');
+        Schema::dropIfExists('bank_accounts');
     }
 }
