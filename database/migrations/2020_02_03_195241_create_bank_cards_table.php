@@ -18,6 +18,7 @@ class CreateBankCardsTable extends Migration
             $table->string("number");
             $table->string("ccv");
             $table->string("expiration_date");
+            $table->enum("type", ["visa", "mastercard"])->default("visa");
             $table->enum("status", ["used", "free"])->default("free");
         });
     }
