@@ -2304,6 +2304,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2317,13 +2324,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Accounts",
   data: function data() {
     return {
       fields: [{
-        key: "name",
-        label: "Name",
+        key: "alias",
+        label: "Alias",
+        sortable: true,
+        sortDirection: "desc"
+      }, {
+        key: "account.iban",
+        label: "IBAN",
         sortable: true,
         sortDirection: "desc"
       }, {
@@ -2337,22 +2351,25 @@ __webpack_require__.r(__webpack_exports__);
         sortable: true,
         "class": "text-center"
       }, {
-        key: "actions",
-        label: "Actions"
-      }],
-      accounts: [{
-        id: 0,
-        name: "Account 1",
-        balance: 471.33,
-        currency: "$"
+        key: "type",
+        label: "Type",
+        sortable: true,
+        "class": "text-center"
       }, {
-        id: 1,
-        name: "Account 2",
-        balance: 141.22,
-        currency: "EUR"
+        key: "actions",
+        label: "Actions",
+        "class": "text-center"
       }]
     };
-  }
+  },
+  methods: {
+    changeAlias: function changeAlias() {
+      console.log("change alias");
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    accounts: "customeraccount/getAccounts"
+  }))
 });
 
 /***/ }),
@@ -2585,8 +2602,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Accounts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Accounts */ "./resources/js/components/products/Accounts.vue");
-//
-//
 //
 //
 //
@@ -73566,47 +73581,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "b-container",
-    { attrs: { fluid: "" } },
-    [
-      _c("b-table", {
-        attrs: {
-          striped: "",
-          hover: "",
-          items: _vm.accounts,
-          fields: _vm.fields
+  return _c("b-table", {
+    attrs: { striped: "", hover: "", items: _vm.accounts, fields: _vm.fields },
+    scopedSlots: _vm._u([
+      {
+        key: "cell(alias)",
+        fn: function(row) {
+          return [
+            _c("input", {
+              attrs: { type: "text" },
+              domProps: { value: row.item.alias },
+              on: { change: _vm.changeAlias }
+            })
+          ]
+        }
+      },
+      {
+        key: "cell(actions)",
+        fn: function() {
+          return [
+            _c(
+              "b-dropdown",
+              {
+                staticClass: "m-2",
+                attrs: {
+                  variant: "primary",
+                  split: "",
+                  text: "Actions",
+                  right: ""
+                }
+              },
+              [
+                _c("b-dropdown-item", [_vm._v("History")]),
+                _vm._v(" "),
+                _c("b-dropdown-item", [_vm._v("Cancel account")]),
+                _vm._v(" "),
+                _c("b-dropdown-item", [_vm._v("Block account")])
+              ],
+              1
+            )
+          ]
         },
-        scopedSlots: _vm._u([
-          {
-            key: "cell(actions)",
-            fn: function(row) {
-              return [
-                _c(
-                  "b-dropdown",
-                  {
-                    staticClass: "m-md-2",
-                    attrs: { id: "dropdown-1", text: "Actions" }
-                  },
-                  [
-                    _c("b-dropdown-item", [
-                      _vm._v("First Action " + _vm._s(row))
-                    ]),
-                    _vm._v(" "),
-                    _c("b-dropdown-item", [_vm._v("Second Action")]),
-                    _vm._v(" "),
-                    _c("b-dropdown-item", [_vm._v("Third Action")])
-                  ],
-                  1
-                )
-              ]
-            }
-          }
-        ])
-      })
-    ],
-    1
-  )
+        proxy: true
+      }
+    ])
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -73919,21 +73938,35 @@ var render = function() {
               _c(
                 "b-card",
                 {
-                  directives: [
-                    {
-                      name: "b-toggle",
-                      rawName: "v-b-toggle.accounts-collapse",
-                      modifiers: { "accounts-collapse": true }
-                    }
-                  ],
                   staticClass: "text-center",
-                  attrs: {
-                    "bg-variant": "primary",
-                    "text-variant": "white",
-                    header: "Accounts"
-                  }
+                  attrs: { "body-class": "p-0" },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "header",
+                      fn: function() {
+                        return [
+                          _c(
+                            "h6",
+                            {
+                              directives: [
+                                {
+                                  name: "b-toggle",
+                                  rawName: "v-b-toggle.accounts-collapse",
+                                  modifiers: { "accounts-collapse": true }
+                                }
+                              ],
+                              staticClass: "mb-0"
+                            },
+                            [_vm._v("Header Slot")]
+                          )
+                        ]
+                      },
+                      proxy: true
+                    }
+                  ])
                 },
                 [
+                  _vm._v(" "),
                   _c(
                     "b-collapse",
                     { attrs: { id: "accounts-collapse", visible: "" } },
@@ -91981,6 +92014,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
     fetchData: function fetchData(context) {
       axios.get("/bank/fetch").then(function (response) {
         context.commit("appuser/SET_USER", response.data.app_user);
+        context.commit("customeraccount/SET_ACCOUNTS", response.data.accounts);
         context.commit("SET_READY", true);
       });
     }
@@ -92077,7 +92111,13 @@ __webpack_require__.r(__webpack_exports__);
   state: {
     accounts: {}
   },
-  getters: {},
+  getters: {
+    getAccounts: function getAccounts(state) {
+      return Object.keys(state.accounts).map(function (id) {
+        return state.accounts[id];
+      });
+    }
+  },
   mutations: {
     // Asigna el usuario de la app
     SET_ACCOUNTS: function SET_ACCOUNTS(state, accounts) {

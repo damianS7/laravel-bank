@@ -2,13 +2,11 @@
   <b-container>
     <b-row class="my-3">
       <b-col cols="12">
-        <b-card
-          bg-variant="primary"
-          text-variant="white"
-          header="Accounts"
-          class="text-center"
-          v-b-toggle.accounts-collapse
-        >
+        <b-card class="text-center" body-class="p-0">
+          <template v-slot:header>
+            <h6 class="mb-0" v-b-toggle.accounts-collapse>Header Slot</h6>
+          </template>
+
           <b-collapse id="accounts-collapse" visible>
             <b-card-text>
               <user-accounts></user-accounts>

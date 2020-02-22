@@ -7,4 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class BankAccount extends Model
 {
     public $timestamps = false;
+
+    public $hidden = ["id"];
 }

@@ -30,6 +30,7 @@ export default new Vuex.Store({
         fetchData(context) {
             axios.get("/bank/fetch").then(function (response) {
                 context.commit("appuser/SET_USER", response.data.app_user);
+                context.commit("customeraccount/SET_ACCOUNTS", response.data.accounts);
                 context.commit("SET_READY", true);
             });
         },

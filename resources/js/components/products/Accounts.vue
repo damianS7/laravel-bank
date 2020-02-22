@@ -1,25 +1,33 @@
 <template>
-  <b-container fluid>
-    <b-table striped hover :items="accounts" :fields="fields">
-      <template v-slot:cell(actions)="row">
-        <b-dropdown id="dropdown-1" text="Actions" class="m-md-2">
-          <b-dropdown-item>First Action {{row }}</b-dropdown-item>
-          <b-dropdown-item>Second Action</b-dropdown-item>
-          <b-dropdown-item>Third Action</b-dropdown-item>
-        </b-dropdown>
-      </template>
-    </b-table>
-  </b-container>
+  <b-table striped hover :items="accounts" :fields="fields">
+    <template v-slot:cell(alias)="row">
+      <input type="text" @change="changeAlias" :value="row.item.alias" />
+    </template>
+    <template v-slot:cell(actions)>
+      <b-dropdown variant="primary" split text="Actions" class="m-2" right>
+        <b-dropdown-item>History</b-dropdown-item>
+        <b-dropdown-item>Cancel account</b-dropdown-item>
+        <b-dropdown-item>Block account</b-dropdown-item>
+      </b-dropdown>
+    </template>
+  </b-table>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Accounts",
   data: function() {
     return {
       fields: [
         {
-          key: "name",
-          label: "Name",
+          key: "alias",
+          label: "Alias",
+          sortable: true,
+          sortDirection: "desc"
+        },
+        {
+          key: "account.iban",
+          label: "IBAN",
           sortable: true,
           sortDirection: "desc"
         },
@@ -35,13 +43,29 @@ export default {
           sortable: true,
           class: "text-center"
         },
-        { key: "actions", label: "Actions" }
-      ],
-      accounts: [
-        { id: 0, name: "Account 1", balance: 471.33, currency: "$" },
-        { id: 1, name: "Account 2", balance: 141.22, currency: "EUR" }
+        {
+          key: "type",
+          label: "Type",
+          sortable: true,
+          class: "text-center"
+        },
+        {
+          key: "actions",
+          label: "Actions",
+          class: "text-center"
+        }
       ]
     };
+  },
+  methods: {
+    changeAlias() {
+      console.log("change alias");
+    }
+  },
+  computed: {
+    ...mapGetters({
+      accounts: "customeraccount/getAccounts"
+    })
   }
 };
 </script>

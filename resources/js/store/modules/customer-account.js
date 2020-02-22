@@ -5,7 +5,11 @@ export default ({
         accounts: {}
     },
     getters: {
-
+        getAccounts: (state) => {
+            return Object.keys(state.accounts).map(
+                id => state.accounts[id]
+            );
+        },
     },
     mutations: {
         // Asigna el usuario de la app
