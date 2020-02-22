@@ -1,7 +1,9 @@
 <template>
-  <b-table striped hover :items="accounts" :fields="fields">
+  <b-table show-empty small stacked="md" striped hover :items="accounts" :fields="fields">
     <template v-slot:cell(alias)="row">
-      <input type="text" @change="changeAlias" :value="row.item.alias" />
+      <b-form-input>
+        <input type="text" @change="changeAlias" :value="row.item.alias" />
+      </b-form-input>
     </template>
     <template v-slot:cell(actions)>
       <b-dropdown variant="primary" split text="Actions" class="m-2" right>
