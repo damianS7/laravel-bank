@@ -1,5 +1,12 @@
 <template>
   <b-container>
+    <b-row class="text-right my-3">
+      <b-col cols="12">
+        <b-button variant="primary" v-if="wizard.step > 1" @click="nextStep('-1')">Back</b-button>
+        <b-button variant="primary" v-if="wizard.step !== 3" @click="nextStep('+1')">Next</b-button>
+        <b-button variant="primary" v-if="wizard.step === 3" @click="contractAccount">Confirm</b-button>
+      </b-col>
+    </b-row>
     <b-row>
       <b-col>
         <product-selector
@@ -23,14 +30,6 @@
       <b-col>
         <account-selector v-if="wizard.step === 3 && wizard.product ==='account'" />
         <card-selector v-if="wizard.step === 2 && wizard.product ==='card'" />
-      </b-col>
-    </b-row>
-
-    <b-row class="text-right">
-      <b-col cols="12">
-        <b-button variant="primary" v-if="wizard.step > 1" @click="nextStep('-1')">Back</b-button>
-        <b-button variant="primary" v-if="wizard.step !== 3" @click="nextStep('+1')">Next</b-button>
-        <b-button variant="primary" v-if="wizard.step === 3" @click="contractAccount">Confirm</b-button>
       </b-col>
     </b-row>
   </b-container>

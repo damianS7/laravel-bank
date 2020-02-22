@@ -5,7 +5,7 @@ Vue.use(VueRouter)
 import Dashboard from '../components/Dashboard.vue'
 import ProductsRouter from '../components/products/ProductsRouter.vue'
 import Products from '../components/products/Products.vue'
-import ProductsContractWizard from '../components/products/ProductsContractWizard.vue'
+import ProductContractWizard from '../components/products/ProductContractWizard.vue'
 import Accounts from '../components/products/Accounts.vue'
 import Account from '../components/products/Account.vue'
 import Cards from '../components/products/Cards.vue'
@@ -40,7 +40,7 @@ export default new VueRouter({
                 },
                 {
                     path: 'contract',
-                    component: ProductsContractWizard,
+                    component: ProductContractWizard,
                 },
             ]
         },
