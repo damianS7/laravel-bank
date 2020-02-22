@@ -123,8 +123,9 @@ MEDIAQUERIES
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;
-        position: absolute;
+        position: fixed;
         z-index: 9999;
+        height: 100%;
     }
     #sidebar.active {
         margin-left: 0;
