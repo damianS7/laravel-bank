@@ -2530,8 +2530,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -2554,9 +2552,18 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    makeToast: function makeToast(title, message) {
+      var variant = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "info";
+      this.$bvToast.toast(message, {
+        title: title,
+        autoHideDelay: 5000,
+        variant: variant,
+        solid: true,
+        toaster: "b-toaster-bottom-right",
+        appendToast: true
+      });
+    },
     nextStep: function nextStep(step) {
-      console.log(this.wizard);
-
       if (step === "+1" && this.wizard.step < 3) {
         this.wizard.step += 1;
       }
@@ -2564,20 +2571,18 @@ __webpack_require__.r(__webpack_exports__);
       if (step === "-1" && this.wizard.step > 1) {
         this.wizard.step -= 1;
       }
-
-      console.log(this.wizard);
     },
     selectProduct: function selectProduct(product) {
       this.wizard.product = product;
       this.nextStep("+1");
     },
     selectAccountType: function selectAccountType(type) {
-      console.log(type);
+      //console.log(type);
       this.wizard.accountType = type;
       this.nextStep("+1");
     },
-    getAccount: function getAccount() {
-      this.$store.dispatch("contractAccount", {
+    contractAccount: function contractAccount() {
+      this.$store.dispatch("customeraccount/contractAccount", {
         vm: this,
         account: {
           product: this.wizard.product,
@@ -73882,7 +73887,7 @@ var render = function() {
             "b-col",
             [
               _vm.wizard.step === 3 && _vm.wizard.product === "account"
-                ? _c("account-selector", { on: { confirm: _vm.getAccount } })
+                ? _c("account-selector")
                 : _vm._e(),
               _vm._v(" "),
               _vm.wizard.step === 2 && _vm.wizard.product === "card"
@@ -73930,6 +73935,17 @@ var render = function() {
                       }
                     },
                     [_vm._v("Next")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.wizard.step === 3
+                ? _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "primary" },
+                      on: { click: _vm.contractAccount }
+                    },
+                    [_vm._v("Confirm")]
                   )
                 : _vm._e()
             ],
@@ -91870,14 +91886,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _modules_app_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/app-user */ "./resources/js/store/modules/app-user.js");
+/* harmony import */ var _modules_customer_account__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/customer-account */ "./resources/js/store/modules/customer-account.js");
 
  // Modules
+
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
   modules: {
-    appuser: _modules_app_user__WEBPACK_IMPORTED_MODULE_2__["default"]
+    appuser: _modules_app_user__WEBPACK_IMPORTED_MODULE_2__["default"],
+    customeraccount: _modules_customer_account__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   state: {
     ready: false
@@ -91899,24 +91918,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
       axios.get("/bank/fetch").then(function (response) {
         context.commit("appuser/SET_USER", response.data.app_user);
         context.commit("SET_READY", true);
-      });
-    },
-    contractAccocunt: function contractAccocunt(context, _ref) {
-      var vm = _ref.vm,
-          account = _ref.account;
-      axios.post("/products/contract", {
-        account: account
-      }).then(function (response) {
-        // Objeto recibido
-        var newAccount = response.data.account; // Si la respuesta tuvo el codigo 200 y el objeto tiene id
-        // Asumimos que es un objeto valido
-
-        if (response.status == 200 && newAccount.hasOwnProperty("id")) {
-          //context.commit("ADD_ITEM", newItem);
-          vm.makeToast("Product", newAccount.iban + " has been added.", "success");
-        }
-      })["catch"](function (error) {
-        vm.makeToast("Product", "Something went wrong.", "danger");
       });
     }
   }
@@ -91991,6 +91992,54 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         vm.makeToast("Profile", "Something went wrong.", "danger");
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/customer-account.js":
+/*!********************************************************!*\
+  !*** ./resources/js/store/modules/customer-account.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    accounts: {}
+  },
+  getters: {},
+  mutations: {
+    // Asigna el usuario de la app
+    SET_ACCOUNTS: function SET_ACCOUNTS(state, accounts) {
+      state.accounts = accounts;
+    },
+    ADD_ACCOUNT: function ADD_ACCOUNT(state, account) {
+      Vue.set(state.accounts, account.id, account);
+    }
+  },
+  actions: {
+    contractAccount: function contractAccount(context, _ref) {
+      var vm = _ref.vm,
+          account = _ref.account;
+      axios.post("/products/contract", {
+        account: account
+      }).then(function (response) {
+        // Objeto recibido
+        var newAccount = response.data.account; // Si la respuesta tuvo el codigo 200 y el objeto tiene id
+        // Asumimos que es un objeto valido
+
+        if (response.status == 200 && newAccount.hasOwnProperty("id")) {
+          context.commit("ADD_ACCOUNT", newAccount);
+          vm.makeToast("Product", "Your account has been created.", "success");
+        }
+      })["catch"](function (error) {
+        vm.makeToast("Product", "Something went wrong.", "danger");
       });
     }
   }
