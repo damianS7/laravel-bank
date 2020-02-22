@@ -16,4 +16,4 @@ Auth::routes();
 Route::get('/', 'BankController@index');
 Route::get('/bank/fetch', 'BankController@fetch');
 
-Route::post('/products/contract', 'BankAccountController@contract');
+Route::post('/products/contract', 'CustomerAccountController@contractProduct');

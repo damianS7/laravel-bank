@@ -2,36 +2,36 @@
 
 namespace App\Services;
 
+use Auth;
 use App\Customer;
+use App\BankAccount;
+use App\CustomerAccount;
 
 class CustomerAccountService
 {
-    public function storeCustomer($request)
+    public function contractProduct($request)
     {
-        // Creamos una nueva Customer usando los datos recibidos
-        $customer = new Customer($request->input("customer"));
+        // ID del usuario logeado en la app
+        $currentUserId = Auth::user()->id;
+
+        // Buscamos una cuenta que este sin uso
+        $bankAccount = Bankaccount::where('status', 'free')->first();
         
+        // Asociamos la cuenta al usuario
+        $customerAccount = new CustomerAccount([
+            "account_id" => $bankAccount->id,
+            "customer_id" => $currentUserId,
+            //"currency" => $request->input("account.currency"),
+            "type" => $request->input("account.type"),
+            "created_on" => date("Y-m-d H:i:s")
+        ]);
+
         // Guardamos los cambios
-        $customer->save();
+        $bankAccount->status = "used";
+        $bankAccount->save();
+        $customerAccount->save();
 
-        // Se devuelve el modelo Customer, ya que todo fue bien.
-        return $customer;
-    }
-
-    // Metodo con la logica para actualizar Customer
-    public function updateCustomer($request, $customerId)
-    {
-        // Buscamos la Customer
-        $customer = Customer::findOrFail($customerId);
-
-        // La Customer exista, asignamos nuevos valores mediante mass
-        // assigment.
-        $customer->fill($request->input("customer"));
-        
-        // Guardamos los cambios
-        $customer->save();
-
-        // Se devuelve el modelo Customer al haber guardado con exito.
-        return $customer;
+        // Se devuelven ambos modelos unidos.
+        return array_merge($customerAccount->toArray(), $bankAccount->toArray());
     }
 }

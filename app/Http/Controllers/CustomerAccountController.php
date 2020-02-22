@@ -4,27 +4,21 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use App\Services\CustomerAccountService;
+use App\Http\Requests\CustomerAccountRequest;
 
-class BankController extends Controller
+class CustomerAccountController extends Controller
 {
-    public function __construct()
+    public function __construct(CustomerAccountService $customerAccountService)
     {
         $this->middleware('auth');
+        $this->customerAccountService = $customerAccountService;
     }
 
-    public function index()
+    public function contractProduct(CustomerAccountRequest $request)
     {
-        return view('bankapp');
-    }
-
-    public function fetch()
-    {
-        // ID del usuario logeado en la app
-        $currentUserId = Auth::user()->id;
+        $account = $this->customerAccountService->contractProduct($request);
         
-        // Datos de usuario
-        $data['app_user'] = Auth::user();
-        
-        return response()->json($data, 200);
+        return response()->json($account, 200);
     }
 }

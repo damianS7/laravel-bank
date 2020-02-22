@@ -14,18 +14,15 @@
         <account-selector
           v-if="wizard.step === 2 && wizard.product ==='account'"
           @selectType="selectAccountType"
-        ></account-selector>
-        <card-selector v-if="wizard.step === 2 && wizard.product ==='card'"></card-selector>
+        />
+        <card-selector v-if="wizard.step === 2 && wizard.product ==='card'" />
       </b-col>
     </b-row>
 
     <b-row>
       <b-col>
-        <account-selector
-          v-if="wizard.step === 3 && wizard.product ==='account'"
-          @confirm="getAccount"
-        ></account-selector>
-        <card-selector v-if="wizard.step === 2 && wizard.product ==='card'"></card-selector>
+        <account-selector v-if="wizard.step === 3 && wizard.product ==='account'" />
+        <card-selector v-if="wizard.step === 2 && wizard.product ==='card'" />
       </b-col>
     </b-row>
 
@@ -33,6 +30,7 @@
       <b-col cols="12">
         <b-button variant="primary" v-if="wizard.step > 1" @click="nextStep('-1')">Back</b-button>
         <b-button variant="primary" v-if="wizard.step !== 3" @click="nextStep('+1')">Next</b-button>
+        <b-button variant="primary" v-if="wizard.step === 3" @click="contractAccount">Confirm</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -57,8 +55,17 @@ export default {
     };
   },
   methods: {
+    makeToast(title, message, variant = "info") {
+      this.$bvToast.toast(message, {
+        title,
+        autoHideDelay: 5000,
+        variant,
+        solid: true,
+        toaster: "b-toaster-bottom-right",
+        appendToast: true
+      });
+    },
     nextStep(step) {
-      console.log(this.wizard);
       if (step === "+1" && this.wizard.step < 3) {
         this.wizard.step += 1;
       }
@@ -66,19 +73,18 @@ export default {
       if (step === "-1" && this.wizard.step > 1) {
         this.wizard.step -= 1;
       }
-      console.log(this.wizard);
     },
     selectProduct(product) {
       this.wizard.product = product;
       this.nextStep("+1");
     },
     selectAccountType(type) {
-      console.log(type);
+      //console.log(type);
       this.wizard.accountType = type;
       this.nextStep("+1");
     },
-    getAccount() {
-      this.$store.dispatch("contractAccount", {
+    contractAccount() {
+      this.$store.dispatch("customeraccount/contractAccount", {
         vm: this,
         account: {
           product: this.wizard.product,
@@ -87,6 +93,7 @@ export default {
       });
     }
   },
+
   components: {
     "product-selector": ProductSelector,
     "card-selector": CardSelect,
