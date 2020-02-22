@@ -17,7 +17,6 @@ class CreateBankAccountsTable extends Migration
             $table->bigIncrements('id');
             $table->string("iban");
             $table->string("bic");
-            $table->enum("type", ["savings", "checking"])->default("savings");
             $table->enum("status", ["used", "free"])->default("free");
         });
     }

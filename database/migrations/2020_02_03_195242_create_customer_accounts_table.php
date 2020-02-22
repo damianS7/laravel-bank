@@ -17,6 +17,7 @@ class CreateCustomerAccountsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('account_id');
+            $table->string("alias"); // nullable?
             $table->enum("status", ["open", "closed", "blocked"])->default("open");
             $table->enum("type", ["savings", "checking"])->default("savings");
             $table->enum("currency", ["EUR", "USD"])->default("EUR");
