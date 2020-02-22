@@ -1,7 +1,7 @@
 <template>
   <b-container fluid class="p-0 wrapper">
     <!-- Sidebar  -->
-    <nav id="sidebar" :class="[ sidebarActive ? 'active' : '']">
+    <nav id="sidebar">
       <sidebar></sidebar>
     </nav>
 
@@ -57,11 +57,8 @@ export default {
       return this.$store.dispatch("appuser/logout");
     },
     switchSidebar() {
-      if (this.sidebarActive) {
-        this.sidebarActive = false;
-      } else {
-        this.sidebarActive = true;
-      }
+      let sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("active");
     }
   },
   beforeCreate() {

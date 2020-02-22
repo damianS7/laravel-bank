@@ -1967,11 +1967,8 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.dispatch("appuser/logout");
     },
     switchSidebar: function switchSidebar() {
-      if (this.sidebarActive) {
-        this.sidebarActive = false;
-      } else {
-        this.sidebarActive = true;
-      }
+      var sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("active");
     }
   },
   beforeCreate: function beforeCreate() {
@@ -2158,12 +2155,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Sidebar",
   methods: {
     logout: function logout() {
       return this.$store.dispatch("appuser/logout");
+    },
+    hideSidebar: function hideSidebar() {
+      var sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("active");
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
@@ -2311,6 +2319,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -72870,15 +72880,7 @@ var render = function() {
     "b-container",
     { staticClass: "p-0 wrapper", attrs: { fluid: "" } },
     [
-      _c(
-        "nav",
-        {
-          class: [_vm.sidebarActive ? "active" : ""],
-          attrs: { id: "sidebar" }
-        },
-        [_c("sidebar")],
-        1
-      ),
+      _c("nav", { attrs: { id: "sidebar" } }, [_c("sidebar")], 1),
       _vm._v(" "),
       _c(
         "div",
@@ -73033,6 +73035,30 @@ var render = function() {
     "b-container",
     { staticClass: "p-0" },
     [
+      _c(
+        "b-row",
+        { staticClass: "sidebar-header text-right" },
+        [
+          _c(
+            "b-col",
+            { staticClass: "brand-link" },
+            [
+              _c(
+                "b-button",
+                {
+                  staticClass: "btn btn-info",
+                  attrs: { type: "button", id: "sidebarCollapse" },
+                  on: { click: _vm.hideSidebar }
+                },
+                [_c("i", { staticClass: "nav-icon fa fa-arrow-left" })]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c(
         "b-row",
         { staticClass: "sidebar-header" },
@@ -73582,17 +73608,27 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("b-table", {
-    attrs: { striped: "", hover: "", items: _vm.accounts, fields: _vm.fields },
+    attrs: {
+      "show-empty": "",
+      small: "",
+      stacked: "md",
+      striped: "",
+      hover: "",
+      items: _vm.accounts,
+      fields: _vm.fields
+    },
     scopedSlots: _vm._u([
       {
         key: "cell(alias)",
         fn: function(row) {
           return [
-            _c("input", {
-              attrs: { type: "text" },
-              domProps: { value: row.item.alias },
-              on: { change: _vm.changeAlias }
-            })
+            _c("b-form-input", [
+              _c("input", {
+                attrs: { type: "text" },
+                domProps: { value: row.item.alias },
+                on: { change: _vm.changeAlias }
+              })
+            ])
           ]
         }
       },

@@ -1,5 +1,12 @@
 <template>
   <b-container class="p-0">
+    <b-row class="sidebar-header text-right">
+      <b-col class="brand-link">
+        <b-button @click="hideSidebar" type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="nav-icon fa fa-arrow-left"></i>
+        </b-button>
+      </b-col>
+    </b-row>
     <b-row class="sidebar-header">
       <b-col class="brand-link">
         <h3>Bootstrap Sidebar</h3>
@@ -127,6 +134,10 @@ export default {
   methods: {
     logout() {
       return this.$store.dispatch("appuser/logout");
+    },
+    hideSidebar() {
+      let sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("active");
     }
   },
   computed: {
