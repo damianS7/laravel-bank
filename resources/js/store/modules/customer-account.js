@@ -28,6 +28,7 @@ export default ({
                 // Asumimos que es un objeto valido
                 if (response.status == 200 && newAccount.hasOwnProperty("id")) {
                     context.commit("ADD_ACCOUNT", newAccount);
+                    vm.showCreatedAccount(newAccount);
                     vm.makeToast("Product", "Your account has been created.", "success");
                 }
             }).catch(function (error) {

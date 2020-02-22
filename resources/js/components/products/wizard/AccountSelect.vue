@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row>
-      <b-col cols="12" sm="6">
+      <b-col cols="12">
         <b-card
           title="Bank account"
           img-src="https://picsum.photos/600/300/?image=25"
@@ -22,8 +22,9 @@
             publishing software like
             Aldus PageMaker including versions of Lorem Ipsum.
           </b-card-text>
-          <b-form-select v-model="type" :options="options"></b-form-select>
-          <b-button href="#" variant="primary" @click="selectType">I want this type</b-button>
+          <b-form-select v-model="type" :options="typeOptions"></b-form-select>
+          <b-form-select v-model="currency" :options="currencyOptions"></b-form-select>
+          <b-button href="#" variant="primary" @click="configAccount">I want this type</b-button>
         </b-card>
       </b-col>
     </b-row>
@@ -36,12 +37,19 @@ export default {
   data: function() {
     return {
       type: "savings",
-      options: { savings: "Savings", checking: "Checking" }
+      currency: "eur",
+      typeOptions: { savings: "Savings", checking: "Checking" },
+      currencyOptions: { eur: "EUR", usd: "USD" }
     };
   },
   methods: {
-    selectType() {
-      this.$emit("selectType", this.type);
+    configAccount() {
+      //this.$emit("setType", this.type);
+      //this.$emit("setCurrency", this.currency);
+      this.$emit("configAccount", {
+        currency: this.currency,
+        type: this.type
+      });
     }
   }
 };

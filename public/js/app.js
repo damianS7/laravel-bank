@@ -2473,6 +2473,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2484,17 +2486,26 @@ __webpack_require__.r(__webpack_exports__);
     return {
       wizard: {
         step: 1,
-        product: "",
-        accountType: null,
+        product: ""
+      },
+      account: {
+        type: null,
         // savings/checking
-        cardType: null,
+        currency: null
+      },
+      card: {
+        type: null,
         // VCC, Debit, Credit
-        cardCompany: null // Masterdcard, VISA
+        company: null // Masterdcard, VISA
 
       }
     };
   },
   methods: {
+    showCreatedAccount: function showCreatedAccount(account) {
+      this.account = account;
+      this.nextStep("+1");
+    },
     makeToast: function makeToast(title, message) {
       var variant = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "info";
       this.$bvToast.toast(message, {
@@ -2515,13 +2526,22 @@ __webpack_require__.r(__webpack_exports__);
         this.wizard.step -= 1;
       }
     },
-    selectProduct: function selectProduct(product) {
-      this.wizard.product = product;
+    configAccount: function configAccount(_ref) {
+      var currency = _ref.currency,
+          type = _ref.type;
+      this.account.currency = currency;
+      this.account.type = type;
       this.nextStep("+1");
     },
-    selectAccountType: function selectAccountType(type) {
-      //console.log(type);
-      this.wizard.accountType = type;
+    configCard: function configCard(_ref2) {
+      var currency = _ref2.currency,
+          type = _ref2.type;
+      this.card.currency = currency;
+      this.card.type = type;
+      this.nextStep("+1");
+    },
+    selectProduct: function selectProduct(product) {
+      this.wizard.product = product;
       this.nextStep("+1");
     },
     contractAccount: function contractAccount() {
@@ -2529,7 +2549,17 @@ __webpack_require__.r(__webpack_exports__);
         vm: this,
         account: {
           product: this.wizard.product,
-          type: this.wizard.accountType
+          type: this.account.type,
+          currency: this.account.currency
+        }
+      });
+    },
+    contractCardd: function contractCardd() {
+      this.$store.dispatch("customeraccount/contractCard", {
+        vm: this,
+        card: {
+          product: this.wizard.product,
+          type: this.account.type
         }
       });
     }
@@ -2659,21 +2689,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AccountSelect",
   props: {},
   data: function data() {
     return {
       type: "savings",
-      options: {
+      currency: "eur",
+      typeOptions: {
         savings: "Savings",
         checking: "Checking"
+      },
+      currencyOptions: {
+        eur: "EUR",
+        usd: "USD"
       }
     };
   },
   methods: {
-    selectType: function selectType() {
-      this.$emit("selectType", this.type);
+    configAccount: function configAccount() {
+      //this.$emit("setType", this.type);
+      //this.$emit("setCurrency", this.currency);
+      this.$emit("configAccount", {
+        currency: this.currency,
+        type: this.type
+      });
     }
   }
 });
@@ -2692,8 +2733,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AccountSummary",
+  props: {
+    account: {
+      required: true,
+      type: Object
+    }
+  },
   data: function data() {
     return {};
   }
@@ -2803,12 +2854,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductSelector",
-  props: {
-    product: {
-      type: String,
-      required: true
-    }
-  },
   data: function data() {
     return {};
   },
@@ -73743,7 +73788,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.wizard.step !== 3
+              _vm.wizard.step < 3
                 ? _c(
                     "b-button",
                     {
@@ -73783,7 +73828,6 @@ var render = function() {
             [
               _vm.wizard.step === 1
                 ? _c("product-selector", {
-                    attrs: { product: _vm.wizard.product },
                     on: { selectProduct: _vm.selectProduct }
                   })
                 : _vm._e()
@@ -73802,12 +73846,12 @@ var render = function() {
             [
               _vm.wizard.step === 2 && _vm.wizard.product === "account"
                 ? _c("account-selector", {
-                    on: { selectType: _vm.selectAccountType }
+                    on: { configAccount: _vm.configAccount }
                   })
                 : _vm._e(),
               _vm._v(" "),
               _vm.wizard.step === 2 && _vm.wizard.product === "card"
-                ? _c("card-selector")
+                ? _c("card-selector", { on: { configCardd: _vm.configCard } })
                 : _vm._e()
             ],
             1
@@ -73823,11 +73867,11 @@ var render = function() {
             "b-col",
             [
               _vm.wizard.step === 3 && _vm.wizard.product === "account"
-                ? _c("account-selector")
+                ? _c("account-summary", { attrs: { account: _vm.account } })
                 : _vm._e(),
               _vm._v(" "),
-              _vm.wizard.step === 2 && _vm.wizard.product === "card"
-                ? _c("card-selector")
+              _vm.wizard.step === 3 && _vm.wizard.product === "card"
+                ? _c("card-summary")
                 : _vm._e()
             ],
             1
@@ -74011,7 +74055,7 @@ var render = function() {
         [
           _c(
             "b-col",
-            { attrs: { cols: "12", sm: "6" } },
+            { attrs: { cols: "12" } },
             [
               _c(
                 "b-card",
@@ -74032,7 +74076,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("b-form-select", {
-                    attrs: { options: _vm.options },
+                    attrs: { options: _vm.typeOptions },
                     model: {
                       value: _vm.type,
                       callback: function($$v) {
@@ -74042,11 +74086,22 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
+                  _c("b-form-select", {
+                    attrs: { options: _vm.currencyOptions },
+                    model: {
+                      value: _vm.currency,
+                      callback: function($$v) {
+                        _vm.currency = $$v
+                      },
+                      expression: "currency"
+                    }
+                  }),
+                  _vm._v(" "),
                   _c(
                     "b-button",
                     {
                       attrs: { href: "#", variant: "primary" },
-                      on: { click: _vm.selectType }
+                      on: { click: _vm.configAccount }
                     },
                     [_vm._v("I want this type")]
                   )
@@ -74085,9 +74140,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("b-container", { attrs: { fluid: "" } }, [
-    _vm._v("Imagen de un cheque con los datos")
-  ])
+  return _c(
+    "b-container",
+    { attrs: { fluid: "" } },
+    [
+      _c("b-row", [_vm._v("LOADING TRANSITION ...")]),
+      _vm._v(
+        "\n  Imagen de un cheque con los datos\n  " +
+          _vm._s(_vm.account.iban) +
+          "\n"
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -92035,6 +92100,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (response.status == 200 && newAccount.hasOwnProperty("id")) {
           context.commit("ADD_ACCOUNT", newAccount);
+          vm.showCreatedAccount(newAccount);
           vm.makeToast("Product", "Your account has been created.", "success");
         }
       })["catch"](function (error) {

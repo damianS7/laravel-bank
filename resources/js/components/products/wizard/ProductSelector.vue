@@ -50,9 +50,6 @@
 <script>
 export default {
   name: "ProductSelector",
-  props: {
-    product: { type: String, required: true }
-  },
   data: function() {
     return {};
   },
