@@ -19,6 +19,6 @@ class CustomerAccountController extends Controller
     {
         $account = $this->customerAccountService->contractProduct($request);
         
-        return response()->json($account, 200);
+        return response()->json(["account" => $account], 200);
     }
 }
