@@ -1,15 +1,16 @@
 /* CUSTOM */
-.dropdown-toggle[aria-expanded="false"]:after {
+#sidebar .dropdown-toggle[aria-expanded="false"]:after {
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
 }
-.dropdown-toggle[aria-expanded="true"]:after {
+
+#sidebar .dropdown-toggle[aria-expanded="true"]:after {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
 }
 
 /*for the animation*/
-.dropdown-toggle:after {
+#sidebar .dropdown-toggle:after {
     transition: 0.5s;
     font-size: 1.4rem;
 }
@@ -73,7 +74,7 @@
 
 /*  */
 #sidebar ul li>a.active,
-a[aria-expanded="true"] {
+#sidebar a[aria-expanded="true"] {
     color: #fff;
     background-color:rgba(255, 255, 255, 0.1)
 }
@@ -82,11 +83,11 @@ a {
     outline: 0;
 }
 
-a[data-toggle="collapse"] {
+#sidebar a[data-toggle="collapse"] {
     position: relative;
 }
 
-.dropdown-toggle::after {
+#sidebar .dropdown-toggle::after {
     display: block;
     position: absolute;
     top: 50%;
