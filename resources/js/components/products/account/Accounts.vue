@@ -1,13 +1,20 @@
 <template>
   <b-table show-empty small stacked="md" striped hover :items="accounts" :fields="fields">
     <template v-slot:cell(alias)="row">
-      <b-form-input>
-        <input type="text" @change="changeAlias" :value="row.item.alias" />
-      </b-form-input>
+      <b-form-input
+        @change="updateAlias"
+        v-model="row.item.alias"
+        placeholder="Edit to set an alias."
+      ></b-form-input>
     </template>
     <template v-slot:cell(actions)>
-      <b-dropdown variant="primary" split text="Actions" class="m-2" right>
-        <b-dropdown-item>History</b-dropdown-item>
+      <b-dropdown variant="primary" size="sm" split text="Actions" class="m-2" right>
+        <b-dropdown-item>
+          <router-link to="/">Info</router-link>
+        </b-dropdown-item>
+        <b-dropdown-item>
+          <router-link to="/">History</router-link>
+        </b-dropdown-item>
         <b-dropdown-item>Cancel account</b-dropdown-item>
         <b-dropdown-item>Block account</b-dropdown-item>
       </b-dropdown>
@@ -60,7 +67,7 @@ export default {
     };
   },
   methods: {
-    changeAlias() {
+    updateAlias() {
       console.log("change alias");
     }
   },

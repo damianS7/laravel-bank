@@ -33,7 +33,7 @@
   </b-container>
 </template>
 <script>
-import Accounts from "./Accounts";
+import Accounts from "./account/Accounts";
 export default {
   name: "Products",
   components: {

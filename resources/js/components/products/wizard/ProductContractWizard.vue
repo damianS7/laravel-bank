@@ -37,11 +37,11 @@
   </b-container>
 </template>
 <script>
-import ProductSelector from "./wizard/ProductSelector";
-import AccountSelect from "./wizard/AccountSelect";
-import AccountSummary from "./wizard/AccountSummary";
-import CardSelect from "./wizard/CardSelect";
-import CardSummary from "./wizard/CardSummary";
+import ProductSelector from "./ProductSelector";
+import AccountSelect from "./AccountSelect";
+import AccountSummary from "./AccountSummary";
+import CardSelect from "./CardSelect";
+import CardSummary from "./CardSummary";
 export default {
   name: "ProductsContractWizard",
   data: function() {
