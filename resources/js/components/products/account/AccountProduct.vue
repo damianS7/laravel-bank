@@ -2,11 +2,6 @@
   <b-container>
     <b-row>
       <b-col cols="12">
-        <account-info></account-info>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="12">
         <h3>ACOUNT INFO HERE, BALANCE, ACC NUMBER. AND CARROUSEL TO NEXT ACCOUNT</h3>
       </b-col>
     </b-row>
@@ -31,7 +26,6 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import AccountInfo from "./AccountInfo";
 export default {
   name: "Account",
   computed: {
@@ -42,9 +36,6 @@ export default {
     account() {
       //return this.getAccount(this.accountId);
     }
-  },
-  components: {
-    "account-info": AccountInfo
   }
 };
 </script>

@@ -9,7 +9,7 @@ class CustomerAccount extends Model
     public $timestamps = false;
 
     public $fillable = [
-        "account_id", "customer_id", "currency", "type", "created_on"
+        "account_id", "customer_id", "alias", "currency", "type", "created_on"
     ];
 
     public function account()

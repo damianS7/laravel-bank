@@ -30,7 +30,7 @@ class BankController extends Controller
         // Cuentas bancarias del usuario
         $data['accounts'] = CustomerAccount::with(
             ["account:id,iban,bic"]
-        )->where("customer_id", $currentUserId)->get();
+        )->where("customer_id", $currentUserId)->get()->keyBy("id");
         
         return response()->json($data, 200);
     }

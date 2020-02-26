@@ -34,4 +34,16 @@ class CustomerAccountService
         // Se devuelven ambos modelos unidos.
         return array_merge($customerAccount->toArray(), $bankAccount->toArray());
     }
+
+    public function updateAccount($request)
+    {
+        // Usar where para asegurarnos de que el usuario esta
+        // accediendo a cuentas que le pertenecen
+        $currentUserId = Auth::user()->id;
+        $customerAccount = CustomerAccount::find($request->input("account.account_id"));
+        $customerAccount->fill($request->input("account"));
+        $customerAccount->save();
+
+        return $customerAccount;
+    }
 }

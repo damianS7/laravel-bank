@@ -21,4 +21,10 @@ class CustomerAccountController extends Controller
         
         return response()->json(["account" => $account], 200);
     }
+
+    public function update(CustomerAccountRequest $request)
+    {
+        $account = $this->customerAccountService->updateAccount($request);
+        return response()->json(["account" => $account], 200);
+    }
 }

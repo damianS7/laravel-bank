@@ -2,15 +2,15 @@
   <b-table show-empty small stacked="md" striped hover :items="accounts" :fields="fields">
     <template v-slot:cell(alias)="row">
       <b-form-input
-        @change="updateAlias"
+        @change="updateAlias(row.item.id)"
         v-model="row.item.alias"
         placeholder="Edit to set an alias."
       ></b-form-input>
     </template>
-    <template v-slot:cell(actions)>
+    <template v-slot:cell(actions)="row">
       <b-dropdown variant="primary" size="sm" split text="Actions" class="m-2" right>
         <b-dropdown-item>
-          <router-link to="/">Info</router-link>
+          <router-link :to="{ path: '/products/accounts/' + row.item.id}">Info</router-link>
         </b-dropdown-item>
         <b-dropdown-item>
           <router-link to="/">History</router-link>
@@ -67,13 +67,28 @@ export default {
     };
   },
   methods: {
-    updateAlias() {
-      console.log("change alias");
+    makeToast(title, message, variant = "info") {
+      this.$bvToast.toast(message, {
+        title,
+        autoHideDelay: 5000,
+        variant,
+        solid: true,
+        toaster: "b-toaster-bottom-right",
+        appendToast: true
+      });
+    },
+    updateAlias(accountId) {
+      let account = this.getAccount(accountId);
+      this.$store.dispatch("customeraccount/updateAccount", {
+        vm: this,
+        account
+      });
     }
   },
   computed: {
     ...mapGetters({
-      accounts: "customeraccount/getAccounts"
+      accounts: "customeraccount/getAccounts",
+      getAccount: "customeraccount/getAccount"
     })
   }
 };

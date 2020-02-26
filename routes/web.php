@@ -17,3 +17,4 @@ Route::get('/', 'BankController@index');
 Route::get('/bank/fetch', 'BankController@fetch');
 
 Route::post('/products/contract', 'CustomerAccountController@contractProduct');
+Route::put('/products/account/{id}', 'CustomerAccountController@update');

@@ -10,6 +10,9 @@ export default ({
                 id => state.accounts[id]
             );
         },
+        getAccount: (state, getters) => (accountId) => {
+            return state.accounts[accountId];
+        },
     },
     mutations: {
         // Asigna el usuario de la app
@@ -17,6 +20,9 @@ export default ({
             state.accounts = accounts;
         },
         ADD_ACCOUNT(state, account) {
+            Vue.set(state.accounts, account.id, account);
+        },
+        UPDATE_ACCOUNT(state, account) {
             Vue.set(state.accounts, account.id, account);
         },
     },
@@ -34,6 +40,24 @@ export default ({
                     context.commit("ADD_ACCOUNT", newAccount);
                     vm.showCreatedAccount(newAccount);
                     vm.makeToast("Product", "Your account has been created.", "success");
+                }
+            }).catch(function (error) {
+                vm.makeToast("Product", "Something went wrong.", "danger");
+            });
+        },
+        updateAccount(context, { vm, account }) {
+            axios.post("/products/account/" + account.id, {
+                account,
+                _method: "put"
+            }).then(function (response) {
+                // Objeto recibido
+                let newAccount = response.data.account;
+
+                // Si la respuesta tuvo el codigo 200 y el objeto tiene id
+                // Asumimos que es un objeto valido
+                if (response.status == 200 && newAccount.hasOwnProperty("id")) {
+                    context.commit("UPDATE_ACCOUNT", newAccount);
+                    vm.makeToast("Product", "Your account has been updated.", "success");
                 }
             }).catch(function (error) {
                 vm.makeToast("Product", "Something went wrong.", "danger");
